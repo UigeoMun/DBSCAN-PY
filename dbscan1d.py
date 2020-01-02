@@ -15,8 +15,12 @@ csvParsed = csv.reader(file)
 chAmpList = []
 for idx, amp in enumerate(csvParsed):
     if idx != 0:
-        listEl = [ 0, float(amp[ch-1]) ]
-        chAmpList.append( listEl )
+        if ch != 0:
+                listEl = [ 0, float(amp[ch-1]) ]
+                chAmpList.append( listEl )
+        else :
+                listEl = [ float(amp[0]), float(amp[1]) ]
+                chAmpList.append( listEl )
 
 dbsacn = DBSCAN(eps, minpts, 'euclidean')
 clusterMask = dbsacn.fit_predict(chAmpList)
@@ -27,3 +31,6 @@ clusetrs = [[idx for idx,value in enumerate(clusterMask) if value==x] for x in v
 
 file.close()
 print(clusetrs)
+
+
+
